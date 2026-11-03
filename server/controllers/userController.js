@@ -2,15 +2,19 @@ const User = require("../models/User");
 const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 
-// Safe user mapper to prevent sensitive field leakage
+// Safe user mapper to prevent sensitive field leakage and ensure both id and _id are available
 const toSafeUser = (user) => ({
     id: user._id,
+    _id: user._id,
     name: user.name,
     email: user.email,
-    role: user.role
+    role: user.role,
+    department: user.department || "General",
+    totalLeaveDays: user.totalLeaveDays ?? 20,
+    createdAt: user.createdAt
 });
 
-//  upadte user role
+// Update user role
 const updateUserRole = asyncHandler(async (req, res) => {
     const userId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -19,9 +23,16 @@ const updateUserRole = asyncHandler(async (req, res) => {
             message: "Invalid ID format"
         });
     }
-    const { role } = req.body; 
 
-    
+    const { role } = req.body;
+
+    // Safety guard: prevent administrator from demoting themselves
+    if (req.user.id === userId && role !== "admin") {
+        return res.status(400).json({
+            success: false,
+            message: "Action rejected: You cannot demote your own administrator account."
+        });
+    }
 
     const user = await User.findById(userId);
     if (!user) {
@@ -31,7 +42,6 @@ const updateUserRole = asyncHandler(async (req, res) => {
         });
     }
 
-    // Apply the promotion or demotion!
     user.role = role;
     await user.save();
 
@@ -44,11 +54,11 @@ const updateUserRole = asyncHandler(async (req, res) => {
     });
 });
 
-//  get all user
+// Get all users
 const getAllUser = asyncHandler(async (req, res) => {
-    const users = await User.find({});
+    const users = await User.find({}).sort({ createdAt: -1 });
     const safeUsers = users.map(toSafeUser);
-    
+
     return res.status(200).json({
         success: true,
         data: safeUsers,
@@ -56,7 +66,7 @@ const getAllUser = asyncHandler(async (req, res) => {
     });
 });
 
-//  delete User
+// Delete user
 const deleteUser = asyncHandler(async (req, res) => {
     const userId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -65,13 +75,36 @@ const deleteUser = asyncHandler(async (req, res) => {
             message: "Invalid ID format"
         });
     }
-    const deleteduser = await User.findByIdAndDelete(userId);
-    if (!deleteduser) {
+
+    // Safety guard: prevent administrator from deleting themselves
+    if (req.user.id === userId) {
+        return res.status(400).json({
+            success: false,
+            message: "Action rejected: You cannot delete your own administrator account."
+        });
+    }
+
+    const userToDelete = await User.findById(userId);
+    if (!userToDelete) {
         return res.status(404).json({
             success: false,
             message: "User not found"
         });
     }
+
+    // Guard against deleting the only admin
+    if (userToDelete.role === "admin") {
+        const adminCount = await User.countDocuments({ role: "admin" });
+        if (adminCount <= 1) {
+            return res.status(400).json({
+                success: false,
+                message: "Action rejected: Cannot delete the only remaining administrator."
+            });
+        }
+    }
+
+    await User.findByIdAndDelete(userId);
+
     return res.status(200).json({
         success: true,
         message: "User deleted successfully"

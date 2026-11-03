@@ -4,7 +4,7 @@ const { toFile } = require("@imagekit/nodejs");
 const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 
-//  helper: upload buffer to ImageKit
+// Helper: upload buffer to ImageKit
 const uploadToImageKit = async (fileBuffer, originalName) => {
   const file = await toFile(fileBuffer, originalName);
   const result = await imagekit.files.upload({
@@ -15,7 +15,7 @@ const uploadToImageKit = async (fileBuffer, originalName) => {
   return { url: result.url, fileId: result.fileId };
 };
 
-//  helper: delete file from ImageKit
+// Helper: delete file from ImageKit
 const deleteFromImageKit = async (fileId) => {
   try {
     await imagekit.files.delete(fileId);
@@ -24,7 +24,7 @@ const deleteFromImageKit = async (fileId) => {
   }
 };
 
-//  apply for reimbursement
+// Apply for reimbursement
 const applyReimbursement = asyncHandler(async (req, res) => {
   const { amount, expenseDate, description } = req.body;
 
@@ -43,32 +43,32 @@ const applyReimbursement = asyncHandler(async (req, res) => {
   let billUrl = null;
   let billFileId = null;
 
-  //  upload bill if file is attached
+  // Upload bill if file is attached
   if (req.file) {
     const uploaded = await uploadToImageKit(req.file.buffer, req.file.originalname);
     billUrl = uploaded.url;
     billFileId = uploaded.fileId;
   }
 
-  //  creating reimbursement
+  // Creating reimbursement
   const reimbursement = await Reimbursement.create({
     user: req.user.id,
     amount: numericAmount,
     expenseDate,
-    description,
+    description: description.trim(),
     billUrl,
     billFileId,
   });
-  
+
   return res.status(201).json({
     success: true,
-    message: "Reimbursement applied successfully",
+    message: "Reimbursement claim submitted successfully",
     data: reimbursement,
     reimbursement,
   });
 });
 
-//  getting all reimbursement from db for a particular user
+// Getting all reimbursement claims for a particular user
 const getReimbursement = asyncHandler(async (req, res) => {
   const reimbursements = await Reimbursement.find({ user: req.user.id }).sort(
     { createdAt: -1 },
@@ -79,7 +79,7 @@ const getReimbursement = asyncHandler(async (req, res) => {
   });
 });
 
-//  updating reimbursement status
+// Updating reimbursement status (approval/rejection)
 const updateReimbursement = asyncHandler(async (req, res) => {
   const reimbursementId = req.params.id;
   if (!mongoose.Types.ObjectId.isValid(reimbursementId)) {
@@ -94,48 +94,59 @@ const updateReimbursement = asyncHandler(async (req, res) => {
   if (!allowedStatuses.includes(status)) {
     return res.status(400).json({
       success: false,
-      message: "Invalid status value"
+      message: "Status must be 'approved' or 'rejected'"
     });
   }
 
-  const reimbursement =
-    await Reimbursement.findById(reimbursementId).populate("user");
+  const reimbursement = await Reimbursement.findById(reimbursementId).populate("user");
   if (!reimbursement) {
     return res.status(404).json({
       success: false,
-      message: "Reimbursement not found"
+      message: "Reimbursement claim not found"
     });
   }
-  const applicantRole = reimbursement.user.role;
+  // Prevent self-approval: a user cannot approve or reject their own reimbursement claim
+  if (reimbursement.user && reimbursement.user._id.toString() === req.user.id) {
+    return res.status(403).json({
+      success: false,
+      message: "Self-approval of reimbursement claims is not allowed."
+    });
+  }
+
+
+  const applicantRole = reimbursement.user?.role;
   const approverRole = req.user.role;
 
+  // Role permissions
   if (approverRole === "manager" && applicantRole !== "employee") {
     return res.status(403).json({
       success: false,
-      message: "Manger can approve only employee reimbursement"
+      message: "Managers can approve employee reimbursements only"
     });
   }
-  if (approverRole === "admin" && applicantRole !== "manager") {
+
+  if (approverRole === "admin" && !["manager", "employee"].includes(applicantRole)) {
     return res.status(403).json({
       success: false,
-      message: "Admin can approve only manager reimbursement"
+      message: "Administrators can approve employee and manager reimbursement claims"
     });
   }
+
   reimbursement.status = status;
   await reimbursement.save();
 
   return res.status(200).json({
     success: true,
-    message: `Reimbursement ${status} successfully`,
+    message: `Reimbursement claim ${status} successfully`,
     data: reimbursement,
     reimbursement
   });
 });
 
-//  get all reimbursement for admin or manager
+// Get all reimbursements for admin or manager
 const getAllReimbursement = asyncHandler(async (req, res) => {
   const reimbursements = await Reimbursement.find({ user: { $ne: req.user.id } })
-    .populate("user", "name email role")
+    .populate("user", "name email role department")
     .sort({ createdAt: -1 });
 
   return res.status(200).json({
@@ -145,7 +156,7 @@ const getAllReimbursement = asyncHandler(async (req, res) => {
   });
 });
 
-//  update bill on an existing reimbursement
+// Update/replace bill on an existing pending reimbursement
 const updateBill = asyncHandler(async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({
@@ -153,19 +164,28 @@ const updateBill = asyncHandler(async (req, res) => {
       message: "Invalid ID format"
     });
   }
+
   const reimbursement = await Reimbursement.findById(req.params.id);
   if (!reimbursement) {
     return res.status(404).json({
       success: false,
-      message: "Reimbursement not found"
+      message: "Reimbursement claim not found"
     });
   }
 
-  //  only the owner can update their bill
+  // Only the owner can update their bill
   if (reimbursement.user.toString() !== req.user.id) {
     return res.status(403).json({
       success: false,
-      message: "Not authorised"
+      message: "Unauthorized: You can only update bills on your own claims"
+    });
+  }
+
+  // Security guard: Only pending claims can have their bill modified
+  if (reimbursement.status !== "pending") {
+    return res.status(400).json({
+      success: false,
+      message: "Cannot modify or replace bills on processed (approved/rejected) reimbursement claims."
     });
   }
 
@@ -176,12 +196,12 @@ const updateBill = asyncHandler(async (req, res) => {
     });
   }
 
-  //  delete old file from ImageKit if exists
+  // Delete old file from ImageKit if exists
   if (reimbursement.billFileId) {
     await deleteFromImageKit(reimbursement.billFileId);
   }
 
-  //  upload new file
+  // Upload new file
   const uploaded = await uploadToImageKit(req.file.buffer, req.file.originalname);
   reimbursement.billUrl = uploaded.url;
   reimbursement.billFileId = uploaded.fileId;
@@ -189,13 +209,13 @@ const updateBill = asyncHandler(async (req, res) => {
 
   return res.status(200).json({
     success: true,
-    message: "Bill updated successfully",
+    message: "Bill replaced successfully",
     data: reimbursement,
     reimbursement
   });
 });
 
-//  delete bill from a reimbursement
+// Delete bill from a reimbursement
 const deleteBill = asyncHandler(async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({
@@ -203,19 +223,28 @@ const deleteBill = asyncHandler(async (req, res) => {
       message: "Invalid ID format"
     });
   }
+
   const reimbursement = await Reimbursement.findById(req.params.id);
   if (!reimbursement) {
     return res.status(404).json({
       success: false,
-      message: "Reimbursement not found"
+      message: "Reimbursement claim not found"
     });
   }
 
-  //  only the owner can delete their bill
+  // Only the owner can delete their bill
   if (reimbursement.user.toString() !== req.user.id) {
     return res.status(403).json({
       success: false,
-      message: "Not authorised"
+      message: "Unauthorized: You can only delete bills on your own claims"
+    });
+  }
+
+  // Security guard: Only pending claims can have their bill deleted
+  if (reimbursement.status !== "pending") {
+    return res.status(400).json({
+      success: false,
+      message: "Cannot delete bills from processed (approved/rejected) reimbursement claims."
     });
   }
 

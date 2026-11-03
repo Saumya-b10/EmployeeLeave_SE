@@ -6,14 +6,17 @@ const asyncHandler = require("express-async-handler");
 // Safe user mapper to prevent sensitive field leakage
 const toSafeUser = (user) => ({
     id: user._id,
+    _id: user._id,
     name: user.name,
     email: user.email,
-    role: user.role
+    role: user.role,
+    department: user.department || "General",
+    totalLeaveDays: user.totalLeaveDays ?? 20
 });
 
 //  registering user
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, password } = req.body;
+    const { name, password, department } = req.body;
     
     // Email normalization and validation
     const email = typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
@@ -45,28 +48,34 @@ const registerUser = asyncHandler(async (req, res) => {
         });
     }
 
-    //  user exist or not
+    // Check if user already exists
     const userExist = await User.findOne({ email });
-
     if (userExist) {
         return res.status(400).json({
             success: false,
-            message: "user already exist"
+            message: "User already exists with this email"
         });
     }
      
-    //  hashing pass
+    // If no users exist in the system yet, automatically bootstrap the first user as admin
+    const userCount = await User.countDocuments();
+    const initialRole = userCount === 0 ? "admin" : "Approval-Pending";
+
+    // Hashing password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    //  create user
+    // Create user
     const user = await User.create({
         name: name.trim(),
         email,
         password: hashedPassword,
+        department: typeof department === "string" && department.trim() ? department.trim() : "General",
+        role: initialRole,
+        totalLeaveDays: 20
     });
 
-    // gen JWT token
+    // Generate JWT token
     const token = await jwt.sign(
         {
             id: user._id,
@@ -76,9 +85,13 @@ const registerUser = asyncHandler(async (req, res) => {
         { expiresIn: "2h" },
     );
 
-    //  response send
+    const message = initialRole === "admin"
+        ? "First user registered and assigned Administrator role successfully!"
+        : "Account created successfully! Please wait for Administrator approval.";
+
     res.status(201).json({
         success: true,
+        message,
         token,
         user: toSafeUser(user),
     });
@@ -111,7 +124,7 @@ const loginUser = asyncHandler(async (req, res) => {
         });
     }
 
-    //  if user exist
+    // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
         return res.status(400).json({
@@ -123,16 +136,17 @@ const loginUser = asyncHandler(async (req, res) => {
     if (!["admin", "employee", "manager"].includes(user.role)) {
         return res.status(403).json({
             success: false,
-            message: "Verification Pending"
+            message: "Account verification pending. Please wait for an administrator to approve your account."
         });
     }
-    //  check for pass
+
+    // Check password
     const passMatch = await bcrypt.compare(password, user.password);
     if (!passMatch) {
         return res.status(400).json({ success: false, message: "Invalid email or password" });
     }
 
-    //  generate jwt
+    // Generate JWT
     const token = await jwt.sign(
         {
             id: user._id,
@@ -142,12 +156,12 @@ const loginUser = asyncHandler(async (req, res) => {
         { expiresIn: "2h" },
     );
 
-    //  send respone
     res.json({
         success: true,
+        message: "Login successful",
         token,
         user: toSafeUser(user),
     });
 });
 
-module.exports = { registerUser, loginUser };
+module.exports = { registerUser, loginUser, toSafeUser };

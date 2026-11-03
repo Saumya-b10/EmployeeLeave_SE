@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import api from "../utils/api";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
-import { FiClock, FiCheckCircle, FiXCircle, FiCalendar, FiDollarSign } from "react-icons/fi";
+import { FiClock, FiCheckCircle, FiXCircle, FiCalendar, FiDollarSign, FiUmbrella } from "react-icons/fi";
 import PageHeader from "../components/PageHeader";
 import SummaryCard from "../components/SummaryCard";
 import StatusChart from "../components/StatusChart";
@@ -30,22 +30,26 @@ const ManagerDashboard = () => {
   const [myReimbursements, setMyReimbursements] = useState([]);
   const [teamLeaves, setTeamLeaves] = useState([]);
   const [teamReimb, setTeamReimb] = useState([]);
+  const [leaveBalance, setLeaveBalance] = useState(null);
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [ml, mr, tl, tr] = await Promise.all([
+      const [ml, mr, tl, tr, bal] = await Promise.allSettled([
         api.get("/api/leave/getLeaves"),
         api.get("/api/reimbursement/getReimbursement"),
         api.get("/api/leave/allLeaves"),
         api.get("/api/reimbursement/getAll"),
+        api.get("/api/leave/balance"),
       ]);
-      setMyLeaves(ml.data.data || ml.data || []);
-      setMyReimbursements(mr.data.data || mr.data || []);
-      setTeamLeaves(tl.data.data || tl.data || []);
-      setTeamReimb(tr.data.data || tr.data.reimbursements || []);
+
+      if (ml.status === "fulfilled") setMyLeaves(ml.value.data?.data || ml.value.data || []);
+      if (mr.status === "fulfilled") setMyReimbursements(mr.value.data?.data || mr.value.data || []);
+      if (tl.status === "fulfilled") setTeamLeaves(tl.value.data?.data || tl.value.data || []);
+      if (tr.status === "fulfilled") setTeamReimb(tr.value.data?.data || tr.value.data?.reimbursements || []);
+      if (bal.status === "fulfilled") setLeaveBalance(bal.value.data?.data || bal.value.data || null);
     } catch {
-      toast.error("Failed to load data");
+      toast.error("Failed to load dashboard data");
     } finally {
       setLoading(false);
     }
@@ -70,7 +74,7 @@ const ManagerDashboard = () => {
       await api.post("/api/reimbursement/applyReimbursement", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      toast.success("Reimbursement applied successfully");
+      toast.success("Reimbursement claim submitted successfully");
       fetchData();
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to apply reimbursement");
@@ -102,26 +106,25 @@ const ManagerDashboard = () => {
   const handleUpdateLeave = async (id, status) => {
     try {
       await api.put(`/api/leave/updateLeave/${id}`, { status });
-      toast.success(`Leave ${status} successfully`);
+      toast.success(`Leave request ${status} successfully`);
       fetchData();
     } catch (err) {
-      toast.error(err.response?.data?.message || "Failed to update");
+      toast.error(err.response?.data?.message || "Failed to update leave status");
     }
   };
 
   const handleUpdateReimb = async (id, status) => {
     try {
       await api.put(`/api/reimbursement/update/${id}`, { status });
-      toast.success(`Reimbursement ${status} successfully`);
+      toast.success(`Reimbursement claim ${status} successfully`);
       fetchData();
     } catch (err) {
-      toast.error(err.response?.data?.message || "Failed to update");
+      toast.error(err.response?.data?.message || "Failed to update claim status");
     }
   };
 
   const countByStatus = (arr, s) => arr.filter((x) => x.status === s).length;
 
-  // Pick the right data set based on active tab
   const getActiveData = () => {
     switch (activeTab) {
       case "my-leaves": return myLeaves;
@@ -156,11 +159,29 @@ const ManagerDashboard = () => {
       case "my-leaves":
         return <LeaveTable leaves={myLeaves} />;
       case "my-reimbursements":
-        return <ReimbursementTable reimbursements={myReimbursements} onUpdateBill={handleUpdateBill} onDeleteBill={handleDeleteBill} />;
+        return (
+          <ReimbursementTable
+            reimbursements={myReimbursements}
+            onUpdateBill={handleUpdateBill}
+            onDeleteBill={handleDeleteBill}
+          />
+        );
       case "team-leaves":
-        return <TeamLeaveTable leaves={teamLeaves} onUpdate={handleUpdateLeave} />;
+        return (
+          <TeamLeaveTable
+            leaves={teamLeaves}
+            onUpdate={handleUpdateLeave}
+            currentUserRole={user?.role}
+          />
+        );
       case "team-reimbursements":
-        return <TeamReimbursementTable reimbursements={teamReimb} onUpdate={handleUpdateReimb} />;
+        return (
+          <TeamReimbursementTable
+            reimbursements={teamReimb}
+            onUpdate={handleUpdateReimb}
+            currentUserRole={user?.role}
+          />
+        );
       default:
         return null;
     }
@@ -170,6 +191,32 @@ const ManagerDashboard = () => {
     <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
       <PageHeader title={`Welcome, ${user?.name}`} subtitle="Manager Dashboard" />
       <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+
+      {/* Leave Balance for personal leaves */}
+      {activeTab === "my-leaves" && leaveBalance && (
+        <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <SummaryCard
+            icon={<FiUmbrella size={18} />}
+            count={leaveBalance.remainingLeaveDays}
+            label="Remaining Leave Days"
+          />
+          <SummaryCard
+            icon={<FiCalendar size={18} />}
+            count={leaveBalance.totalLeaveDays}
+            label="Total Leave Days"
+          />
+          <SummaryCard
+            icon={<FiCheckCircle size={18} />}
+            count={leaveBalance.usedLeaveDays}
+            label="Used Leave Days"
+          />
+          <SummaryCard
+            icon={<FiClock size={18} />}
+            count={leaveBalance.pendingLeaveDays ?? 0}
+            label="Pending Leave Days"
+          />
+        </div>
+      )}
 
       {/* Summary Cards + Chart */}
       <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-5">

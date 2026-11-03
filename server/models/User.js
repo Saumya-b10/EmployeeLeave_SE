@@ -9,14 +9,19 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique:true
     },
-    role:{
+    role: {
         type: String,
-        enum: ["admin", "manager", "employee","Approval-Pending"],
-        default:"Approval-Pending"
+        enum: ["admin", "manager", "employee", "Approval-Pending"],
+        default: "Approval-Pending"
+    },
+    department: {
+        type: String,
+        trim: true,
+        default: "General"
     },
     password: {
         type: String,
-        required:true
+        required: true
     },
     totalLeaveDays: {
         type: Number,
