@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 850" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1; rx: 8; }
+      .red-bar { fill: #dc2626; }
+      .brand { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 900; font-size: 26px; fill: #dc2626; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: 700; fill: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; }
+      .text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; fill: #475569; }
+      .bold { font-weight: 700; fill: #0f172a; }
+      .tbl-header { fill: #f1f5f9; }
+      .tbl-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 600; fill: #334155; }
+      .line { stroke: #e2e8f0; stroke-width: 1; }
+      .paid-badge { fill: #dcfce7; stroke: #86efac; stroke-width: 1; rx: 6; }
+      .paid-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: 800; fill: #15803d; letter-spacing: 1px; }
+      .total-box { fill: #fef2f2; stroke: #fca5a5; stroke-width: 1; rx: 6; }
+    </style>
+  </defs>
+
+  <rect width="600" height="850" class="bg" />
+
+  <g transform="translate(30, 25)">
+    <rect width="540" height="800" class="card" />
+
+    <!-- Red top stripe -->
+    <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 12 L 0 12 Z" class="red-bar" />
+
+    <!-- Header area -->
+    <text x="30" y="55" class="brand">airtel <tspan font-weight="300" font-size="18" fill="#475569">xstream fiber</tspan></text>
+    <text x="30" y="75" class="text">Bharti Airtel Limited • CIN: L74899DL1995PLC070609</text>
+    <text x="510" y="50" class="title" text-anchor="end">TAX INVOICE</text>
+    <text x="510" y="70" class="text" text-anchor="end">Invoice No: <tspan class="bold">AT/DEL/26/90241</tspan></text>
+
+    <line x1="30" y1="95" x2="510" y2="95" class="line" />
+
+    <!-- Customer Details -->
+    <rect x="30" y="110" width="230" height="100" fill="#f8fafc" stroke="#e2e8f0" rx="4" />
+    <text x="45" y="130" class="bold" font-size="11">BILLED TO (EMPLOYEE):</text>
+    <text x="45" y="150" class="bold" font-size="13">Rohan Sharma</text>
+    <text x="45" y="170" class="text">Tower 4, Flat 702, Sector 62</text>
+    <text x="45" y="188" class="text">Noida, Uttar Pradesh 201309</text>
+
+    <!-- Account Details -->
+    <rect x="280" y="110" width="230" height="100" fill="#f8fafc" stroke="#e2e8f0" rx="4" />
+    <text x="295" y="130" class="bold" font-size="11">ACCOUNT DETAILS:</text>
+    <text x="295" y="150" class="text">DSL / Account ID: <tspan class="bold">011-84920145</tspan></text>
+    <text x="295" y="170" class="text">Bill Date: <tspan class="bold">15 Oct 2026</tspan></text>
+    <text x="295" y="188" class="text">Period: <tspan class="bold">01 Oct 2026 – 31 Oct 2026</tspan></text>
+
+    <!-- Plan Summary -->
+    <text x="30" y="240" class="title">Current Plan Subscription</text>
+    <text x="30" y="260" class="text">Fiber Basic Plus — Unlimited Internet up to 200 Mbps with WFH Priority Bandwidth</text>
+
+    <!-- Charges Table -->
+    <rect x="30" y="285" width="480" height="30" class="tbl-header" />
+    <text x="45" y="305" class="tbl-text">DESCRIPTION</text>
+    <text x="300" y="305" class="tbl-text" text-anchor="middle">HSN/SAC</text>
+    <text x="500" y="305" class="tbl-text" text-anchor="end">AMOUNT (INR)</text>
+
+    <text x="45" y="340" class="text">Broadband Monthly Rental Charges (Oct 2026)</text>
+    <text x="300" y="340" class="text" text-anchor="middle">998422</text>
+    <text x="500" y="340" class="bold" text-anchor="end">₹1,270.34</text>
+
+    <line x1="30" y1="360" x2="510" y2="360" class="line" />
+
+    <text x="45" y="385" class="text">Subtotal (Net Taxable Value)</text>
+    <text x="500" y="385" class="bold" text-anchor="end">₹1,270.34</text>
+
+    <text x="45" y="410" class="text">Central GST (CGST @ 9%)</text>
+    <text x="500" y="410" class="text" text-anchor="end">₹114.33</text>
+
+    <text x="45" y="435" class="text">State GST (SGST @ 9%)</text>
+    <text x="500" y="435" class="text" text-anchor="end">₹114.33</text>
+
+    <line x1="30" y1="460" x2="510" y2="460" stroke="#cbd5e1" stroke-width="2" />
+
+    <!-- Total Box -->
+    <rect x="30" y="480" width="480" height="90" class="total-box" />
+    <text x="50" y="510" class="text" font-weight="600" fill="#991b1b">TOTAL INVOICE AMOUNT</text>
+    <text x="50" y="550" class="bold" font-size="28" fill="#991b1b">₹1,499.00</text>
+    
+    <rect x="350" y="505" width="140" height="40" class="paid-badge" />
+    <text x="420" y="530" class="paid-text" text-anchor="middle">✓ PAID IN FULL</text>
+    <text x="500" y="560" class="text" font-size="10" text-anchor="end">Txn Ref: AXB/20261015/8819</text>
+
+    <!-- GST & Statutory details -->
+    <line x1="30" y1="600" x2="510" y2="600" class="line" />
+    <text x="30" y="630" class="bold" font-size="11">Statutory Compliance Details:</text>
+    <text x="30" y="650" class="text">Airtel GSTIN: <tspan class="bold">09AAACB2894G1ZP</tspan> (Uttar Pradesh Telecom Circle)</text>
+    <text x="30" y="670" class="text">Customer Status: Individual B2C Employee Consumer</text>
+    <text x="30" y="690" class="text">Registered Office: Bharti Crescent, 1 Nelson Mandela Road, Vasant Kunj, Phase II, New Delhi 110070</text>
+    <text x="30" y="725" class="text" font-size="10" fill="#94a3b8">Note: This computer-generated tax invoice requires no physical signature under Indian Information Technology Act, 2000.</text>
+  </g>
+</svg>
+

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 850" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1; rx: 8; }
+      .scrum-bar { fill: #f97316; }
+      .brand { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 900; font-size: 24px; fill: #ea580c; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 700; fill: #0f172a; text-transform: uppercase; }
+      .text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; fill: #475569; }
+      .bold { font-weight: 700; fill: #0f172a; }
+      .tbl-header { fill: #f1f5f9; }
+      .tbl-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 600; fill: #334155; }
+      .line { stroke: #e2e8f0; stroke-width: 1; }
+      .total-box { fill: #fff7ed; stroke: #fdba74; stroke-width: 1; rx: 6; }
+    </style>
+  </defs>
+
+  <rect width="600" height="850" class="bg" />
+
+  <g transform="translate(30, 25)">
+    <rect width="540" height="800" class="card" />
+
+    <!-- Orange Bar -->
+    <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 12 L 0 12 Z" class="scrum-bar" />
+
+    <!-- Header -->
+    <text x="30" y="52" class="brand">Scrum Alliance®</text>
+    <text x="30" y="70" class="text">KnowledgeHut Solutions Pvt Ltd (Global REP Partner) • GSTIN: 29AABCK9412M1ZN</text>
+    <text x="510" y="52" class="title" text-anchor="end">EXAM FEE TAX INVOICE</text>
+    <text x="510" y="70" class="text" text-anchor="end">Order ID: <tspan class="bold">SA-IND-2026-88194</tspan></text>
+
+    <line x1="30" y1="90" x2="510" y2="90" class="line" />
+
+    <!-- Candidate Meta -->
+    <rect x="30" y="105" width="230" height="90" fill="#f8fafc" stroke="#e2e8f0" rx="4" />
+    <text x="45" y="125" class="bold" font-size="11">CANDIDATE INFORMATION:</text>
+    <text x="45" y="145" class="bold" font-size="13">Arya</text>
+    <text x="45" y="165" class="text">Role: Engineering Manager</text>
+    <text x="45" y="180" class="text">Scrum Member ID: SM-8924109</text>
+
+    <rect x="280" y="105" width="230" height="90" fill="#f8fafc" stroke="#e2e8f0" rx="4" />
+    <text x="295" y="125" class="bold" font-size="11">TRANSACTION DETAILS:</text>
+    <text x="295" y="145" class="text">Order Date: <tspan class="bold">25 Sep 2026</tspan></text>
+    <text x="295" y="165" class="text">Payment Method: <tspan class="bold">Corporate MasterCard</tspan></text>
+    <text x="295" y="180" class="text">Status: <tspan class="bold" fill="#16a34a">Payment Verified (Success)</tspan></text>
+
+    <!-- Table -->
+    <rect x="30" y="220" width="480" height="30" class="tbl-header" />
+    <text x="45" y="240" class="tbl-text">ASSESSMENT / CERTIFICATION ITEM</text>
+    <text x="320" y="240" class="tbl-text" text-anchor="middle">SAC CODE</text>
+    <text x="500" y="240" class="tbl-text" text-anchor="end">AMOUNT (INR)</text>
+
+    <text x="45" y="275" class="bold" font-size="12">Certified ScrumMaster® (CSM) Annual Renewal Fee</text>
+    <text x="45" y="292" class="text">2-Year Credential Extension &amp; Professional SEU Evaluation Assessment</text>
+    <text x="320" y="280" class="text" text-anchor="middle">999293</text>
+    <text x="500" y="280" class="bold" text-anchor="end">₹1,525.42</text>
+
+    <line x1="30" y1="320" x2="510" y2="320" class="line" />
+
+    <!-- Tax details -->
+    <text x="45" y="355" class="text">Net Taxable Assessment Value</text>
+    <text x="500" y="355" class="bold" text-anchor="end">₹1,525.42</text>
+
+    <text x="45" y="380" class="text">Central GST (CGST @ 9%)</text>
+    <text x="500" y="380" class="text" text-anchor="end">₹137.29</text>
+
+    <text x="45" y="405" class="text">State GST (SGST @ 9%)</text>
+    <text x="500" y="405" class="text" text-anchor="end">₹137.29</text>
+
+    <line x1="30" y1="430" x2="510" y2="430" stroke="#cbd5e1" stroke-width="2" />
+
+    <!-- Total -->
+    <rect x="30" y="450" width="480" height="85" class="total-box" />
+    <text x="50" y="480" class="text" font-weight="700" fill="#c2410c">TOTAL AMOUNT CHARGED</text>
+    <text x="50" y="515" class="bold" font-size="28" fill="#9a3412">₹1,800.00</text>
+    <text x="490" y="490" class="bold" font-size="13" fill="#15803d" text-anchor="end">✓ PAID &amp; APPROVED</text>
+    <text x="490" y="510" class="text" font-size="11" text-anchor="end">Auth Code: 894120</text>
+
+    <!-- Certificate & Policy Note -->
+    <rect x="30" y="555" width="480" height="50" fill="#f0fdf4" stroke="#86efac" rx="4" />
+    <text x="45" y="575" class="bold" font-size="11" fill="#166534">CONTINUING PROFESSIONAL EDUCATION:</text>
+    <text x="45" y="590" class="text" fill="#166534">Eligible under Company Employee Upskilling &amp; Professional Certification Policy.</text>
+
+    <!-- Footer -->
+    <line x1="30" y1="630" x2="510" y2="630" class="line" />
+    <text x="30" y="660" class="bold" font-size="11">KnowledgeHut Solutions Pvt Ltd:</text>
+    <text x="30" y="680" class="text">#12, 4th Floor, Prestige Meridian, MG Road, Bengaluru, Karnataka 560001</text>
+    <text x="30" y="700" class="text">Scrum Alliance Inc., 7237 Church Street, Suite 400, Westminster, CO 80030, USA</text>
+    <text x="30" y="735" class="text" font-size="10" fill="#94a3b8">Computer-generated receipt issued in compliance with Indian GST &amp; Education Services Act.</text>
+  </g>
+</svg>
+

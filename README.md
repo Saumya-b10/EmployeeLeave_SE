@@ -1,124 +1,87 @@
 # Swiftly — Leave & Reimbursement Portal
 
-A full-stack web application for managing employee leaves and reimbursement claims with role-based access control.
+> A full-stack enterprise web portal for employee leave tracking, expense reimbursement management, and hierarchical approvals.
 
-## Features
+---
 
-- **Authentication** — JWT-based login & signup
-- **Role-Based Dashboards** — Employee, Manager, and Admin views
-- **Leave Management** — Apply, approve, and reject leave requests
-- **Reimbursement Claims** — Submit claims with optional bill uploads (via ImageKit)
-- **Bill Management** — Upload, replace, delete, and download bills (images/PDFs)
-- **Charts & Analytics** — Donut charts showing status breakdown on dashboards
-- **Toast Notifications** — Real-time feedback for all actions
-- **Dark / Light Mode** — Theme toggle with system preference support
+## ⚡ Quick Start (Single Command)
 
-## Tech Stack
-
-| Layer    | Technology                              |
-|----------|-----------------------------------------|
-| Frontend | React, Vite, TailwindCSS, Recharts      |
-| Backend  | Node.js, Express, Mongoose              |
-| Database | MongoDB Atlas                           |
-| Storage  | ImageKit (bill uploads)                 |
-| Auth     | JWT (jsonwebtoken + bcryptjs)           |
-
-## Getting Started
- - Demo credential for admin
-   - username/email - test@gmail.com
-   - pass - test123456789
-### Prerequisites
-
-- Node.js v18+
-- MongoDB Atlas connection string
-- ImageKit account (for bill uploads)
-
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/Abhishek-Verma0/Employee-Leave-Management-System.git
-cd Employee-Leave-Management-System
-```
-
-### 2. Setup the server
-
-```bash
-cd server
-npm install
-```
-
-Create a `.env` file in `server/`:
-
-```
-MONGO_DB_URL=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-IMAGEKIT_PUBLIC_KEY=your_public_key
-IMAGEKIT_PRIVATE_KEY=your_private_key
-IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/your_id
-```
-
-Start the server:
-
-```bash
-npm start
-```
-
-### 3. Setup the client
-
-```bash
-cd client
-npm install
-```
-
-Create a `.env` file in `client/`:
-
-```
-VITE_API_BASE_URL=http://localhost:3000
-```
-
-Start the client:
+From the project directory, run:
 
 ```bash
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173`.
+*This single command starts both the **Backend API (port 3000)** and the **Frontend Client (port 5173)** concurrently.*
 
-## Roles
+* Open in browser: 👉 **`http://localhost:5173`**
 
-| Role     | Capabilities                                              |
-|----------|-----------------------------------------------------------|
-| Employee | Apply for leaves & reimbursements, upload bills            |
-| Manager  | All employee actions + approve/reject employee requests    |
-| Admin    | Manage users, approve/reject manager requests, view all data |
+---
 
-## Project Structure
+## 🔑 All Login Credentials
 
+> **All passwords for all accounts are set to: `123456`**
+
+| Name | Role | Email | Password | Department |
+|:---|:---:|:---|:---:|:---:|
+| **System Administrator** | `admin` | `admin@swiftly.local` | **`123456`** | Administration |
+| **Arya** | `manager` | `arya12@gmail.com` | **`123456`** | Engineering |
+| **Rohan Sharma** | `employee` | `rohan.sharma@swiftly.in` | **`123456`** | Engineering |
+| **Priya Patel** | `employee` | `priya.patel@swiftly.in` | **`123456`** | Finance |
+| **Test Employee** | `employee` | `employee_test@example.com` | **`123456`** | Engineering |
+
+---
+
+## 🧩 Features & What Each Does
+
+### 1. Authentication & Role-Based Access Control (RBAC)
+* **JWT Tokens & Salted Bcrypt**: 2-hour session expiry, passwords hashed with 10 salt rounds.
+* **Self-Bootstrapping**: First registered account becomes Admin; subsequent signups enter `Approval-Pending` until an Admin approves them.
+
+### 2. Smart Leave Management Engine
+* **Leave Application**: Employees apply specifying `From Date`, `To Date`, and `Reason`.
+* **Automated Validations**: Prevents date overlap, rejects inverted date ranges, and checks requested days against annual balance (default: 20 days).
+* **Quota Tracking**: Remaining days deduct dynamically upon approval.
+
+### 3. Expense Reimbursement & Bill Viewer
+* **Claim Submission**: Submit expense claims with amount (₹ INR), date, and description.
+* **Document Attachment**: Attached receipts (Ola trips, IndiGo flights, Airtel broadband, Barbeque Nation dining) viewable directly in-app with zero external dependencies.
+* **Pending Controls**: Employees can preview, replace, or delete attached receipts until the claim is reviewed.
+
+### 4. Hierarchical Approvals & Anti-Conflict Rules
+* **Manager Role**: Reviews, approves, or rejects team members' leave and reimbursement claims.
+* **Admin Role**: Approves manager requests, manages all user accounts, promotes/demotes roles, and deletes users.
+* **Self-Approval Guard**: The system strictly blocks managers and admins from approving their own leaves or claims.
+
+### 5. Analytics & Reporting
+* **Donut Charts**: Interactive status breakdowns (Approved, Pending, Rejected) powered by Recharts.
+* **Instant Export**: Download filtered leave and expense tables as formatted **PDFs** (jsPDF) or standard **CSV** spreadsheets.
+* **Modern UI**: Full Dark/Light mode theme switch and real-time toast notifications.
+
+---
+
+## 📁 Clean Project Structure
+
+```text
+EmployeeLeave_SE/
+├── dev.js              # Single-command concurrent launcher
+├── package.json        # Root scripts (npm run dev)
+├── README.md           # Complete documentation
+├── client/             # React 19 + Vite 7 frontend
+│   ├── public/bills/   # Authentic vector invoice & receipt assets
+│   └── src/            # Components, pages, contexts, styles
+└── server/             # Node.js + Express 5 backend
+    ├── config/         # MongoDB connection & configurations
+    ├── controllers/    # Auth, Leave, Reimbursement & User logic
+    ├── models/         # Mongoose schemas (User, Leave, Reimbursement)
+    ├── routes/         # Express REST API routes
+    └── scripts/        # Seeding scripts (seedMockData.js, seedAdmin.js)
 ```
-├── client/             # React frontend (Vite)
-│   └── src/
-│       ├── components/ # Reusable UI components
-│       ├── context/    # Auth & Theme context providers
-│       ├── pages/      # Dashboard & auth pages
-│       └── utils/      # Axios instance
-└── server/             # Express backend
-    ├── config/         # DB & ImageKit config
-    ├── controllers/    # Route handlers
-    ├── middleware/      # Auth middleware
-    ├── models/         # Mongoose schemas
-    └── routes/         # API routes
-```
 
-## Contributing
+---
 
-Contributions are welcome! If you'd like to improve this project:
+## 🛠️ Tech Stack
 
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/your-feature`)
-3. Commit your changes (`git commit -m "Add your feature"`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a Pull Request
-
-## Author
-
-**Abhishek Verma** — [@Abhishek-Verma0](https://github.com/Abhishek-Verma0)
+* **Frontend**: React 19, Vite 7, TailwindCSS v4, Recharts, jsPDF, React Hot Toast
+* **Backend**: Node.js, Express 5, Mongoose 9, JWT, Bcrypt.js, Multer
+* **Database**: MongoDB Atlas Cloud (`cluster0.1dbvrku.mongodb.net`)

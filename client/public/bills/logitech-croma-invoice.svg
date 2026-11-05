@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 850" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1; rx: 8; }
+      .teal-bar { fill: #008080; }
+      .brand { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 900; font-size: 26px; fill: #008080; }
+      .tata { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #0284c7; font-weight: 700; letter-spacing: 0.5px; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: 700; fill: #0f172a; text-transform: uppercase; }
+      .text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; fill: #475569; }
+      .bold { font-weight: 700; fill: #0f172a; }
+      .tbl-header { fill: #f1f5f9; }
+      .tbl-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 600; fill: #334155; }
+      .line { stroke: #e2e8f0; stroke-width: 1; }
+      .total-box { fill: #f0fdfa; stroke: #99f6e4; stroke-width: 1; rx: 6; }
+    </style>
+  </defs>
+
+  <rect width="600" height="850" class="bg" />
+
+  <g transform="translate(30, 25)">
+    <rect width="540" height="800" class="card" />
+
+    <!-- Top Accent Bar -->
+    <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 12 L 0 12 Z" class="teal-bar" />
+
+    <text x="30" y="52" class="brand">croma</text>
+    <text x="125" y="52" class="tata">| A TATA Enterprise</text>
+    <text x="30" y="72" class="text">Infiniti Retail Ltd • Megastore, South Extension, New Delhi</text>
+    <text x="510" y="52" class="title" text-anchor="end">TAX INVOICE / CASH MEMO</text>
+    <text x="510" y="72" class="text" text-anchor="end">Invoice No: <tspan class="bold">CR/DEL/26/89421</tspan></text>
+
+    <line x1="30" y1="90" x2="510" y2="90" class="line" />
+
+    <!-- Customer and Invoice Meta -->
+    <rect x="30" y="105" width="230" height="90" fill="#f8fafc" stroke="#e2e8f0" rx="4" />
+    <text x="45" y="125" class="bold" font-size="11">CUSTOMER DETAILS:</text>
+    <text x="45" y="145" class="bold" font-size="13">Priya Patel</text>
+    <text x="45" y="165" class="text">Department: Finance (Remote Work)</text>
+    <text x="45" y="180" class="text">Phone: +91 98712 34567</text>
+
+    <rect x="280" y="105" width="230" height="90" fill="#f8fafc" stroke="#e2e8f0" rx="4" />
+    <text x="295" y="125" class="bold" font-size="11">INVOICE METADATA:</text>
+    <text x="295" y="145" class="text">Date of Sale: <tspan class="bold">03 Nov 2026</tspan></text>
+    <text x="295" y="165" class="text">Payment Mode: <tspan class="bold">UPI (HDFC Bank)</tspan></text>
+    <text x="295" y="180" class="text">GSTIN: <tspan class="bold">07AABCI9021R1ZP</tspan></text>
+
+    <!-- Table -->
+    <rect x="30" y="220" width="480" height="30" class="tbl-header" />
+    <text x="45" y="240" class="tbl-text">ITEM DESCRIPTION</text>
+    <text x="270" y="240" class="tbl-text" text-anchor="middle">HSN</text>
+    <text x="340" y="240" class="tbl-text" text-anchor="middle">QTY</text>
+    <text x="420" y="240" class="tbl-text" text-anchor="end">RATE</text>
+    <text x="500" y="240" class="tbl-text" text-anchor="end">AMOUNT</text>
+
+    <text x="45" y="275" class="bold" font-size="12">Logitech MK295 Silent Wireless Combo</text>
+    <text x="45" y="292" class="text">Full-size Keyboard &amp; Ergonomic Mouse (Graphite)</text>
+    <text x="270" y="280" class="text" text-anchor="middle">84716060</text>
+    <text x="340" y="280" class="text" text-anchor="middle">1</text>
+    <text x="420" y="280" class="text" text-anchor="end">₹2,076.27</text>
+    <text x="500" y="280" class="bold" text-anchor="end">₹2,076.27</text>
+
+    <line x1="30" y1="315" x2="510" y2="315" class="line" />
+
+    <text x="45" y="340" class="text">Warranty: 1 Year Official Manufacturer Warranty Included</text>
+
+    <line x1="30" y1="365" x2="510" y2="365" class="line" />
+
+    <!-- Tax Calculations -->
+    <text x="45" y="395" class="text">Taxable Amount (Excl. GST)</text>
+    <text x="500" y="395" class="bold" text-anchor="end">₹2,076.27</text>
+
+    <text x="45" y="420" class="text">Central GST (CGST @ 9%)</text>
+    <text x="500" y="420" class="text" text-anchor="end">₹186.86</text>
+
+    <text x="45" y="445" class="text">State GST (SGST @ 9%)</text>
+    <text x="500" y="445" class="text" text-anchor="end">₹186.87</text>
+
+    <line x1="30" y1="470" x2="510" y2="470" stroke="#cbd5e1" stroke-width="2" />
+
+    <!-- Total Card -->
+    <rect x="30" y="490" width="480" height="90" class="total-box" />
+    <text x="50" y="520" class="text" font-weight="700" fill="#0f766e">NET INVOICE TOTAL (INCL. TAXES)</text>
+    <text x="50" y="560" class="bold" font-size="28" fill="#0f766e">₹2,450.00</text>
+
+    <rect x="345" y="515" width="145" height="38" fill="#ccfbf1" stroke="#5eead4" rx="4" />
+    <text x="417" y="539" class="bold" font-size="13" fill="#115e59" text-anchor="middle">✓ FULLY SETTLED</text>
+
+    <!-- Terms -->
+    <line x1="30" y1="610" x2="510" y2="610" class="line" />
+    <text x="30" y="635" class="bold" font-size="11">Terms &amp; Conditions:</text>
+    <text x="30" y="655" class="text">1. Electronic equipment purchases eligible for corporate IT hardware reimbursement.</text>
+    <text x="30" y="672" class="text">2. Serial Number: SN-LOGI-89240182 registered under customer warranty.</text>
+    <text x="30" y="690" class="text">3. Infinit Retail Ltd, Unit 701, Nirman Kendra, Famous Studio Lane, Mahalaxmi, Mumbai 400011.</text>
+    <text x="30" y="730" class="text" font-size="10" fill="#94a3b8">This is an authentic computer-generated invoice and requires no physical seal.</text>
+  </g>
+</svg>
+

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 820" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f5f5f4; }
+      .card { fill: #ffffff; stroke: #d6d3d1; stroke-width: 1; rx: 6; }
+      .gold-bar { fill: #b45309; }
+      .hotel-name { font-family: "Georgia", serif; font-size: 24px; font-weight: 700; fill: #451a03; text-anchor: middle; letter-spacing: 2px; }
+      .subtext { font-family: "Georgia", serif; font-size: 11px; fill: #78716c; text-anchor: middle; letter-spacing: 1px; }
+      .mono { font-family: "Courier New", Courier, monospace; font-size: 12px; fill: #292524; }
+      .mono-bold { font-family: "Courier New", Courier, monospace; font-size: 12px; font-weight: 700; fill: #1c1917; }
+      .line { stroke: #e7e5e4; stroke-width: 1; }
+      .dashed { stroke: #a8a29e; stroke-width: 1; stroke-dasharray: 4,3; }
+      .total-amount { font-family: "Georgia", serif; font-size: 26px; font-weight: 700; fill: #78350f; }
+    </style>
+  </defs>
+
+  <rect width="540" height="820" class="bg" />
+
+  <g transform="translate(30, 25)">
+    <rect width="480" height="770" class="card" />
+
+    <path d="M 0 6 Q 0 0 6 0 L 474 0 Q 480 0 480 6 L 480 10 L 0 10 Z" class="gold-bar" />
+
+    <!-- Hotel Luxury Header -->
+    <text x="240" y="55" class="hotel-name">THE OBEROI</text>
+    <text x="240" y="75" class="subtext">NEW DELHI • LUXURY DINING</text>
+    <text x="240" y="90" class="subtext">Dr. Zakir Hussain Marg, New Delhi 110003</text>
+    <text x="240" y="105" class="subtext">GSTIN: 07AAACT0821M1ZV | SAC: 996331</text>
+
+    <line x1="25" y1="120" x2="455" y2="120" class="line" />
+
+    <!-- Metadata -->
+    <text x="25" y="145" class="mono">Outlet: threesixtyone° Dining Lounge</text>
+    <text x="455" y="145" class="mono" text-anchor="end">Table: B-06 (3 Covers)</text>
+
+    <text x="25" y="165" class="mono">Check No: OB-DEL-89412</text>
+    <text x="455" y="165" class="mono" text-anchor="end">Date: 02 Nov 2026, 13:45</text>
+
+    <text x="25" y="185" class="mono">Host / Guest: <tspan class="mono-bold">Arya (Manager, Engineering)</tspan></text>
+    <text x="455" y="185" class="mono" text-anchor="end">Server: Ananya M.</text>
+
+    <line x1="25" y1="205" x2="455" y2="205" class="dashed" />
+
+    <!-- Items -->
+    <text x="25" y="230" class="mono-bold">DESCRIPTION</text>
+    <text x="320" y="230" class="mono-bold" text-anchor="middle">QTY</text>
+    <text x="455" y="230" class="mono-bold" text-anchor="end">AMOUNT</text>
+
+    <line x1="25" y1="240" x2="455" y2="240" class="dashed" />
+
+    <text x="25" y="265" class="mono">Executive Business 3-Course Lunch</text>
+    <text x="320" y="265" class="mono" text-anchor="middle">3</text>
+    <text x="455" y="265" class="mono" text-anchor="end">3,150.00</text>
+
+    <text x="25" y="290" class="mono">Himalayan Sparkling Mineral Water</text>
+    <text x="320" y="290" class="mono" text-anchor="middle">2</text>
+    <text x="455" y="290" class="mono" text-anchor="end">320.00</text>
+
+    <text x="25" y="315" class="mono">Artisan French Press Coffee</text>
+    <text x="320" y="315" class="mono" text-anchor="middle">3</text>
+    <text x="455" y="315" class="mono" text-anchor="end">343.56</text>
+
+    <line x1="25" y1="340" x2="455" y2="340" class="dashed" />
+
+    <!-- Taxes and totals -->
+    <text x="25" y="370" class="mono">Food &amp; Beverage Net Subtotal:</text>
+    <text x="455" y="370" class="mono-bold" text-anchor="end">₹3,813.56</text>
+
+    <text x="25" y="395" class="mono">Discretionary Service Charge (10%):</text>
+    <text x="455" y="395" class="mono" text-anchor="end">₹381.36</text>
+
+    <text x="25" y="420" class="mono">Central GST (CGST @ 2.5%):</text>
+    <text x="455" y="420" class="mono" text-anchor="end">₹95.34</text>
+
+    <text x="25" y="445" class="mono">State GST (SGST @ 2.5%):</text>
+    <text x="455" y="445" class="mono" text-anchor="end">₹95.34</text>
+
+    <line x1="25" y1="470" x2="455" y2="470" stroke="#78350f" stroke-width="2" />
+
+    <!-- Grand Total -->
+    <text x="25" y="505" class="mono-bold" font-size="14">GRAND TOTAL PAYABLE:</text>
+    <text x="455" y="505" class="total-amount" text-anchor="end">₹4,500.00</text>
+
+    <line x1="25" y1="530" x2="455" y2="530" stroke="#78350f" stroke-width="2" />
+
+    <!-- Settlement -->
+    <text x="25" y="560" class="mono">SETTLEMENT METHOD: CORPORATE CREDIT CARD</text>
+    <text x="25" y="580" class="mono">CARD TYPE: MASTER BUSINESS PLATINUM</text>
+    <text x="25" y="600" class="mono">TRANSACTION ID: TXN_OBEROI_8921094</text>
+    <text x="25" y="620" class="mono">BUSINESS REASON: Client Architecture Review &amp; Strategy</text>
+
+    <rect x="25" y="645" width="430" height="40" fill="#fef3c7" stroke="#fcd34d" rx="4" />
+    <text x="240" y="670" class="mono-bold" fill="#92400e" text-anchor="middle">✓ AUTHORIZED CORPORATE EXPENSE RECEIPT</text>
+
+    <!-- Footer -->
+    <line x1="25" y1="705" x2="455" y2="705" class="line" />
+    <text x="240" y="730" class="subtext">Thank you for visiting The Oberoi, New Delhi.</text>
+    <text x="240" y="745" class="subtext">For reservations: dining.newdelhi@oberoihotels.com</text>
+  </g>
+</svg>
+

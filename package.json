@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "install": "cd server && npm install && cd ../client && npm install",
-    "build": "cd server && npm install && cd ../client && npm install --include=dev && npm run build",
-    "start": "cd server && node index.js",
-    "seed:admin": "cd server && node scripts/seedAdmin.js"
+    "dev": "node dev.js",
+    "start": "node dev.js",
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "seed:mock": "cd server && node scripts/seedMockData.js",
+    "seed:admin": "cd server && node scripts/seedAdmin.js",
+    "build": "cd client && npm run build"
   }
 }

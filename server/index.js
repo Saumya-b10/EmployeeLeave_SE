@@ -17,14 +17,14 @@ const app = express()
 app.use(cors())
 app.use(express.json());
 
+// Static bills & public assets
+app.use(express.static(path.join(__dirname, "../client/public")));
+
 // API Routes
 app.use("/api/auth", authRoutes)
 app.use("/api/leave", leaveRoute);
 app.use("/api/reimbursement", reimbursementRoute)
 app.use("/api/user", userRoleRoute)
-
-// Global error Middleware
-app.use(errorMiddleware);
 
 // Unified Deployment Logic
 if (process.env.NODE_ENV === "production") {
@@ -40,6 +40,9 @@ else {
         res.send("Swiftly Server is running in development mode (API only)");
     });
 }
+
+// Global error Middleware
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
 

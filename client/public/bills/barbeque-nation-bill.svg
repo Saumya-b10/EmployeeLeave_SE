@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 800" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f3f4f6; }
+      .receipt { fill: #fffdfa; stroke: #e5e7eb; stroke-width: 1; rx: 4; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06)); }
+      .brand { font-family: "Courier New", Courier, monospace; font-weight: 900; font-size: 22px; fill: #b91c1c; text-anchor: middle; letter-spacing: 1px; }
+      .subbrand { font-family: "Courier New", Courier, monospace; font-size: 11px; fill: #4b5563; text-anchor: middle; }
+      .mono { font-family: "Courier New", Courier, monospace; font-size: 12px; fill: #1f2937; }
+      .mono-bold { font-family: "Courier New", Courier, monospace; font-size: 12px; font-weight: 700; fill: #111827; }
+      .mono-title { font-family: "Courier New", Courier, monospace; font-size: 13px; font-weight: 700; fill: #111827; }
+      .dashed { stroke: #9ca3af; stroke-width: 1; stroke-dasharray: 4,3; }
+      .paid-stamp { fill: none; stroke: #15803d; stroke-width: 2; stroke-dasharray: 6,3; rx: 6; }
+      .stamp-text { font-family: "Courier New", Courier, monospace; font-weight: 800; font-size: 15px; fill: #15803d; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="500" height="800" class="bg" />
+
+  <g transform="translate(35, 20)">
+    <rect width="430" height="760" class="receipt" />
+
+    <!-- Restaurant Header -->
+    <text x="215" y="45" class="brand">BARBEQUE NATION</text>
+    <text x="215" y="65" class="subbrand">BARBEQUE NATION HOSPITALITY LTD</text>
+    <text x="215" y="80" class="subbrand">Connaught Place, Outer Circle, New Delhi</text>
+    <text x="215" y="95" class="subbrand">GSTIN: 07AAACB2910Q1ZS | SAC: 996331</text>
+    <text x="215" y="110" class="subbrand">Phone: +91 11 4982 7100</text>
+
+    <line x1="25" y1="125" x2="405" y2="125" class="dashed" />
+
+    <!-- Order Metadata -->
+    <text x="25" y="145" class="mono">Date: 22/10/2026</text>
+    <text x="405" y="145" class="mono" text-anchor="end">Time: 21:42 PM</text>
+    <text x="25" y="165" class="mono">Bill No: BN-DEL-89241</text>
+    <text x="405" y="165" class="mono" text-anchor="end">Table: T-14</text>
+    <text x="25" y="185" class="mono">Guest: <tspan class="mono-bold">Priya Patel (4 Pax)</tspan></text>
+    <text x="405" y="185" class="mono" text-anchor="end">Server: Ramesh K.</text>
+
+    <line x1="25" y1="205" x2="405" y2="205" class="dashed" />
+
+    <!-- Table Header -->
+    <text x="25" y="225" class="mono-title">ITEM DESCRIPTION</text>
+    <text x="290" y="225" class="mono-title" text-anchor="middle">QTY</text>
+    <text x="405" y="225" class="mono-title" text-anchor="end">AMOUNT</text>
+
+    <line x1="25" y1="235" x2="405" y2="235" class="dashed" />
+
+    <!-- Items -->
+    <text x="25" y="260" class="mono">NON-VEG DINNER BUFFET</text>
+    <text x="290" y="260" class="mono" text-anchor="middle">2</text>
+    <text x="405" y="260" class="mono" text-anchor="end">1,500.00</text>
+
+    <text x="25" y="285" class="mono">VEG DINNER BUFFET</text>
+    <text x="290" y="285" class="mono" text-anchor="middle">2</text>
+    <text x="405" y="285" class="mono" text-anchor="end">1,100.00</text>
+
+    <text x="25" y="310" class="mono">VIRGIN MOJITO PITCHER</text>
+    <text x="290" y="310" class="mono" text-anchor="middle">1</text>
+    <text x="405" y="310" class="mono" text-anchor="end">247.62</text>
+
+    <text x="25" y="335" class="mono">BLUE LAGOON MOCKTAIL</text>
+    <text x="290" y="335" class="mono" text-anchor="middle">1</text>
+    <text x="405" y="335" class="mono" text-anchor="end">200.00</text>
+
+    <line x1="25" y1="360" x2="405" y2="360" class="dashed" />
+
+    <!-- Subtotals and Taxes -->
+    <text x="25" y="385" class="mono">FOOD &amp; BEV SUBTOTAL:</text>
+    <text x="405" y="385" class="mono-bold" text-anchor="end">₹3,047.62</text>
+
+    <text x="25" y="410" class="mono">CGST @ 2.5%:</text>
+    <text x="405" y="410" class="mono" text-anchor="end">₹76.19</text>
+
+    <text x="25" y="435" class="mono">SGST @ 2.5%:</text>
+    <text x="405" y="435" class="mono" text-anchor="end">₹76.19</text>
+
+    <line x1="25" y1="460" x2="405" y2="460" stroke="#111827" stroke-width="2" />
+
+    <!-- Total Due -->
+    <text x="25" y="495" class="mono-title" font-size="16">NET AMOUNT PAYABLE:</text>
+    <text x="405" y="495" class="mono-title" font-size="20" text-anchor="end">₹3,200.00</text>
+
+    <line x1="25" y1="520" x2="405" y2="520" stroke="#111827" stroke-width="2" />
+
+    <!-- Settlement Info -->
+    <text x="25" y="550" class="mono">PAYMENT MODE: CORPORATE CARD (VISA)</text>
+    <text x="25" y="570" class="mono">CARD NO: ************4821</text>
+    <text x="25" y="590" class="mono">AUTH CODE: AP90812 | BATCH: 0041</text>
+
+    <!-- Paid Stamp -->
+    <g transform="translate(115, 620)">
+      <rect width="200" height="42" class="paid-stamp" />
+      <text x="100" y="27" class="stamp-text">★ PAID &amp; VERIFIED ★</text>
+    </g>
+
+    <line x1="25" y1="690" x2="405" y2="690" class="dashed" />
+    <text x="215" y="715" class="subbrand">Thank you for dining with us!</text>
+    <text x="215" y="730" class="subbrand">Team Celebration: Q3 Sprint Closing</text>
+  </g>
+</svg>
+

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 850" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f9fafb; }
+      .card { fill: #ffffff; stroke: #e5e7eb; stroke-width: 1; rx: 8; }
+      .header-bg { fill: #000000; }
+      .brand { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; font-size: 26px; fill: #ffffff; }
+      .tagline { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #a3a3a3; letter-spacing: 1px; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; font-weight: 700; fill: #111827; }
+      .text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; fill: #4b5563; }
+      .bold { font-weight: 600; fill: #111827; }
+      .line { stroke: #e5e7eb; stroke-width: 1; stroke-dasharray: 4,4; }
+      .solid-line { stroke: #e5e7eb; stroke-width: 1; }
+      .amount-box { fill: #ecfdf5; stroke: #a7f3d0; stroke-width: 1; rx: 6; }
+      .amount-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 600; fill: #065f46; text-transform: uppercase; }
+      .amount-val { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 28px; font-weight: 800; fill: #064e3b; }
+      .badge { fill: #dbeafe; rx: 4; }
+      .badge-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10px; font-weight: 700; fill: #1e40af; }
+    </style>
+  </defs>
+
+  <rect width="600" height="850" class="bg" />
+  
+  <g transform="translate(30, 25)">
+    <rect width="540" height="800" class="card" />
+
+    <!-- Top Header -->
+    <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 80 L 0 80 Z" class="header-bg" />
+    <text x="30" y="45" class="brand">OLA</text>
+    <text x="30" y="65" class="tagline">ANI TECHNOLOGIES PVT. LTD. • TRIP INVOICE</text>
+    <rect x="420" y="28" width="90" height="24" class="badge" />
+    <text x="440" y="44" class="badge-text">PRIME SEDAN</text>
+
+    <!-- CRN & Date -->
+    <text x="30" y="115" class="text">CRN Number: <tspan class="bold">CRN9824173821</tspan></text>
+    <text x="340" y="115" class="text">Ride Date: <tspan class="bold">02 Nov 2026, 02:45 PM</tspan></text>
+    <text x="30" y="135" class="text">Passenger: <tspan class="bold">Rohan Sharma</tspan></text>
+    <text x="340" y="135" class="text">Vehicle: <tspan class="bold">DL 3C CS 9182</tspan></text>
+
+    <line x1="30" y1="155" x2="510" y2="155" class="solid-line" />
+
+    <!-- Route details -->
+    <circle cx="40" cy="185" r="5" fill="#10b981" />
+    <text x="55" y="185" class="bold" font-size="12">DLF Cyber City, Building 10, Gurugram</text>
+    <text x="55" y="200" class="text" font-size="11">Pickup Point • Haryana 122002</text>
+
+    <line x1="40" y1="195" x2="40" y2="235" stroke="#9ca3af" stroke-width="2" stroke-dasharray="3,3" />
+
+    <rect x="35" y="240" width="10" height="10" fill="#ef4444" rx="2" />
+    <text x="55" y="245" class="bold" font-size="12">Sector 29 Corporate Towers, Gurugram</text>
+    <text x="55" y="260" class="text" font-size="11">Drop Point • Distance: 8.6 km (28 mins)</text>
+
+    <line x1="30" y1="285" x2="510" y2="285" class="solid-line" />
+
+    <!-- Fare Breakdown Table -->
+    <text x="30" y="320" class="title">Fare Breakdown &amp; Taxes</text>
+
+    <text x="30" y="360" class="text">Base Ride Fare (8.6 km)</text>
+    <text x="510" y="360" class="bold" text-anchor="end">₹640.00</text>
+
+    <text x="30" y="390" class="text">Ride Time Charges (28 mins)</text>
+    <text x="510" y="390" class="bold" text-anchor="end">₹80.34</text>
+
+    <text x="30" y="420" class="text">Convenience &amp; Platform Fee</text>
+    <text x="510" y="420" class="bold" text-anchor="end">₹87.16</text>
+
+    <text x="30" y="450" class="text">Central GST (CGST @ 2.5%)</text>
+    <text x="510" y="450" class="bold" text-anchor="end">₹21.25</text>
+
+    <text x="30" y="480" class="text">State GST (SGST @ 2.5%)</text>
+    <text x="510" y="480" class="bold" text-anchor="end">₹21.25</text>
+
+    <line x1="30" y1="510" x2="510" y2="510" class="line" />
+
+    <!-- Amount Card -->
+    <rect x="30" y="535" width="480" height="95" class="amount-box" />
+    <text x="50" y="565" class="amount-label">Total Amount Paid (INR)</text>
+    <text x="50" y="605" class="amount-val">₹850.00</text>
+    <text x="500" y="585" class="bold" text-anchor="end" fill="#065f46" font-size="13">PAID VIA CORPORATE UPI</text>
+    <text x="500" y="605" class="text" text-anchor="end" font-size="11">Ref: UPI/261102847921</text>
+
+    <!-- Footer info -->
+    <line x1="30" y1="660" x2="510" y2="660" class="solid-line" />
+    <text x="30" y="690" class="text" font-size="11">GSTIN: <tspan class="bold">06AABCO4829Q1ZT</tspan> | SAC Code: 996412 (Taxi Services)</text>
+    <text x="30" y="710" class="text" font-size="11">Registered Address: Regent Insignia, #414, 3rd Floor, 4th Block, Bengaluru, KA 560034</text>
+    <text x="30" y="730" class="text" font-size="11">This is an electronically generated valid tax invoice under Section 31 of CGST Act, 2017.</text>
+
+    <!-- Barcode illustration -->
+    <g transform="translate(180, 755)">
+      <rect x="0" y="0" width="3" height="25" fill="#374151" />
+      <rect x="6" y="0" width="2" height="25" fill="#374151" />
+      <rect x="12" y="0" width="5" height="25" fill="#374151" />
+      <rect x="20" y="0" width="2" height="25" fill="#374151" />
+      <rect x="25" y="0" width="4" height="25" fill="#374151" />
+      <rect x="33" y="0" width="1" height="25" fill="#374151" />
+      <rect x="38" y="0" width="6" height="25" fill="#374151" />
+      <rect x="48" y="0" width="2" height="25" fill="#374151" />
+      <rect x="54" y="0" width="4" height="25" fill="#374151" />
+      <rect x="62" y="0" width="3" height="25" fill="#374151" />
+      <rect x="70" y="0" width="5" height="25" fill="#374151" />
+      <rect x="80" y="0" width="2" height="25" fill="#374151" />
+      <rect x="86" y="0" width="4" height="25" fill="#374151" />
+      <rect x="94" y="0" width="2" height="25" fill="#374151" />
+      <rect x="100" y="0" width="6" height="25" fill="#374151" />
+      <rect x="110" y="0" width="3" height="25" fill="#374151" />
+      <rect x="118" y="0" width="2" height="25" fill="#374151" />
+      <rect x="124" y="0" width="5" height="25" fill="#374151" />
+      <rect x="135" y="0" width="3" height="25" fill="#374151" />
+      <rect x="144" y="0" width="2" height="25" fill="#374151" />
+      <rect x="150" y="0" width="4" height="25" fill="#374151" />
+      <rect x="160" y="0" width="5" height="25" fill="#374151" />
+      <rect x="170" y="0" width="2" height="25" fill="#374151" />
+    </g>
+  </g>
+</svg>
+
