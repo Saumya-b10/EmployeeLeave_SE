@@ -11,8 +11,6 @@ const leaveRoute = require("./routes/leaveRoute")
 const userRoleRoute = require("./routes/userRoutes")
 const path = require("path");
 
-connectDb()
-
 const app = express()
 app.use(cors())
 app.use(express.json());
@@ -46,6 +44,8 @@ app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log(`server running on ${PORT}`);
-})
+connectDb().then(() => {
+    app.listen(PORT, () => {
+        console.log(`server running on ${PORT}`);
+    });
+});
