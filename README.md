@@ -84,4 +84,4 @@ EmployeeLeave_SE/
 
 * **Frontend**: React 19, Vite 7, TailwindCSS v4, Recharts, jsPDF, React Hot Toast
 * **Backend**: Node.js, Express 5, Mongoose 9, JWT, Bcrypt.js, Multer
-* **Database**: MongoDB Atlas Cloud (`cluster0.1dbvrku.mongodb.net`)
+* **Database**: MongoDB Local / Compass (`mongodb://127.0.0.1:27017/employee_leave`)
